@@ -1,0 +1,12 @@
+resolver:
+  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/10.yaml
+
+packages:
+- .
+
+extra-deps:
+- git: https://github.com/fmidue/prolog-programming-task
+  commit: 492e5ee740d06475a6d7e586f6ada8b629f519b7
+- git: https://github.com/owestphal/prolog
+  commit: c339040625cb300c7682acb660c4288e3aed0b31
+- prolog-graph-lib-0.2.1.1
