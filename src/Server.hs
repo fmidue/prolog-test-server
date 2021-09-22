@@ -1,5 +1,4 @@
-{-# LANGUAGE OverloadedStrings, QuasiQuotes #-}
-{-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Server (runApp, app) where
 
 import Network.Wai (Application)
