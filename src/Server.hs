@@ -18,9 +18,12 @@ import Prolog.Programming.Task (verifyConfig, checkTask)
 import Prolog.Programming.Data (Config(..),Code(..))
 
 import IndexContent (indexHTML)
+import Web.Scotty (middleware)
+import Network.Wai.Middleware.Cors (simpleCors)
 
 app' :: S.ScottyM ()
 app' = do
+  middleware simpleCors
   S.get "/" $ do
     S.html indexHTML
 

@@ -31,6 +31,7 @@ library
     , transformers
     , utf8-string
     , wai
+    , wai-cors
     , wai-extra
     , wl-pprint-text
   default-language: Haskell2010
@@ -52,6 +53,7 @@ executable prolog-test-server
     , transformers
     , utf8-string
     , wai
+    , wai-cors
     , wai-extra
     , wl-pprint-text
   default-language: Haskell2010
@@ -78,6 +80,7 @@ test-suite spec
     , transformers
     , utf8-string
     , wai
+    , wai-cors
     , wai-extra
     , wl-pprint-text
   default-language: Haskell2010

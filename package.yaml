@@ -15,6 +15,7 @@ dependencies:
   - scotty
   - wai
   - wai-extra
+  - wai-cors
   - wl-pprint-text
   - transformers
   - text
