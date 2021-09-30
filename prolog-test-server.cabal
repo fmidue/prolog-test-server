@@ -25,6 +25,7 @@ library
   build-depends:
       aeson
     , base >=4.7 && <5
+    , prolog
     , prolog-programming-task
     , scotty
     , text
@@ -46,6 +47,7 @@ executable prolog-test-server
   build-depends:
       aeson
     , base >=4.7 && <5
+    , prolog
     , prolog-programming-task
     , prolog-test-server
     , scotty
@@ -73,6 +75,7 @@ test-suite spec
     , hspec-wai
     , hspec-wai-json
     , http-types
+    , prolog
     , prolog-programming-task
     , prolog-test-server
     , scotty

@@ -20,6 +20,7 @@ dependencies:
   - transformers
   - text
   - utf8-string
+  - prolog
   - prolog-programming-task
 
 library:
