@@ -56,13 +56,18 @@ app' = do
     cs <- S.jsonData @[Clause]
     S.text . pack . unlines $ show <$> cs
 
-  S.post "/drop-clause-mutation/:mode/:num" $ do
-     mode <- S.param "mode"
+  S.post "/drop-clause-mutation/summ" $ do
+    fileMutation Summary
+
+  S.post "/drop-clause-mutation/indiv/:num" $ do
      num <- S.param "num"
-     [("program",programFile)] <- S.files
-     case dropClauseMutation mode num (toString $ fileContent programFile) of
-       Left e -> S.text . pack $ "Error: " ++ show e
-       Right ps -> S.json $ MutationResult ps
+     fileMutation (Indiviual num)
+
+fileMutation m = do
+  [("program",programFile)] <- S.files
+  case dropClauseMutation m (toString $ fileContent programFile) of
+    Left e -> S.text . pack $ "Error: " ++ show e
+    Right ps -> S.json $ MutationResult ps
 
 newtype MutationResult = MutationResult [String]
 instance ToJSON MutationResult where

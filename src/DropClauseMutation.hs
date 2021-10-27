@@ -1,24 +1,21 @@
 {-# LANGUAGE OverloadedStrings #-}
-module DropClauseMutation (dropClauseMutation, Mode) where
+module DropClauseMutation (dropClauseMutation, Mode(..)) where
 
 import Web.Scotty (Parsable(..))
 
 import Language.Prolog
 
-data Mode = Indiviual
-
-
-instance Parsable Mode where
-  parseParam "indiv" = Right Indiviual
-  parseParam _ = Left "unable to parse mode"
+data Mode = Indiviual Int | Summary
 
 type Error = String
 type ProgramText = String
 
-dropClauseMutation :: Mode -> Int -> ProgramText -> Either Error [ProgramText]
-dropClauseMutation _ n s = case consultString s of
-  Left e -> Left $ show e
-  Right cs -> Right [ unlines $ show <$> dropIx i cs | i <- [1..n]]
+dropClauseMutation :: Mode -> ProgramText -> Either Error [ProgramText]
+dropClauseMutation Summary s =
+  case consultString s of
+    Left e -> Left $ show e
+    Right cs -> Right [ unlines $ show <$> dropIx i cs | i <- [1..length cs]]
+dropClauseMutation (Indiviual n) s = take n <$> dropClauseMutation Summary s
 
 dropIx :: Int -> [a] -> [a]
 dropIx n xs = take (n-1) xs ++ drop n xs
