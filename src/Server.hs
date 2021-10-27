@@ -12,7 +12,7 @@ import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Trans.Writer (execWriterT, tell)
 
 import Data.ByteString.Lazy.UTF8 (toString)
-import Data.Text.Lazy (pack)
+import Data.Text.Lazy (pack, Text)
 import Data.Aeson hiding (Result)
 
 import GHC.Generics (Generic)
@@ -27,6 +27,8 @@ import Prolog.Programming.Data (Config(..),Code(..))
 import IndexContent (indexHTML)
 import Web.Scotty (middleware)
 import Network.Wai.Middleware.Cors (simpleCors)
+
+import DropClauseMutation
 
 app' :: S.ScottyM ()
 app' = do
@@ -53,7 +55,19 @@ app' = do
   S.post "/get-pl-file" $ do
     cs <- S.jsonData @[Clause]
     S.text . pack . unlines $ show <$> cs
-    
+
+  S.post "/drop-clause-mutation/:mode/:num" $ do
+     mode <- S.param "mode"
+     num <- S.param "num"
+     [("program",programFile)] <- S.files
+     case dropClauseMutation mode num (toString $ fileContent programFile) of
+       Left e -> S.text . pack $ "Error: " ++ show e
+       Right ps -> S.json $ MutationResult ps
+
+newtype MutationResult = MutationResult [String]
+instance ToJSON MutationResult where
+  toJSON (MutationResult ps) = object ["result" .= ps]
+
 app :: IO Application
 app = S.scottyApp app'
 

@@ -16,6 +16,7 @@ build-type:     Simple
 
 library
   exposed-modules:
+      DropClauseMutation
       IndexContent
       Server
   other-modules:
