@@ -14,7 +14,7 @@ dropClauseMutation :: Mode -> ProgramText -> Either Error [ProgramText]
 dropClauseMutation Summary s =
   case consultString s of
     Left e -> Left $ show e
-    Right cs -> Right [ unlines $ show <$> dropIx i cs | i <- [1..length cs]]
+    Right cs -> Right [ concatMap ((++ ".\n") . init . tail) $ show <$> dropIx i cs | i <- [1..length cs]]
 dropClauseMutation (Indiviual n) s = take n <$> dropClauseMutation Summary s
 
 dropIx :: Int -> [a] -> [a]
