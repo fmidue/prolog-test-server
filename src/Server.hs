@@ -29,6 +29,7 @@ import Web.Scotty (middleware)
 import Network.Wai.Middleware.Cors (simpleCors)
 
 import DropClauseMutation
+import ToAnonymousVarMutation
 
 app' :: S.ScottyM ()
 app' = do
@@ -63,9 +64,22 @@ app' = do
      num <- S.param "num"
      fileMutation (Indiviual num)
 
+  S.post "/to-anon-var-mutation/summ" $ do
+    anonVarMutation Summary
+
+  S.post "/to-anon-var-mutation/indiv/:num" $ do
+     num <- S.param "num"
+     anonVarMutation (Indiviual num)
+
 fileMutation m = do
   [("program",programFile)] <- S.files
   case dropClauseMutation m (toString $ fileContent programFile) of
+    Left e -> S.text . pack $ "Error: " ++ show e
+    Right ps -> S.json $ MutationResult ps
+
+anonVarMutation m = do
+  [("program",programFile)] <- S.files
+  case toAnonVarMutation m (toString $ fileContent programFile) of
     Left e -> S.text . pack $ "Error: " ++ show e
     Right ps -> S.json $ MutationResult ps
 

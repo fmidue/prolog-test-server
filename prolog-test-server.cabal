@@ -19,6 +19,7 @@ library
       DropClauseMutation
       IndexContent
       Server
+      ToAnonymousVarMutation
   other-modules:
       Paths_prolog_test_server
   hs-source-dirs:
