@@ -21,7 +21,7 @@ toAnonVarMutation Summary s =
     Right cs -> Right $ map (concatMap ((++ ".\n") . replace "\\\\" "\\" . init . tail . show)) (tail $ mapM mutate cs)
       where
         mutate (Clause lhs rhs) = do
-          anonVars <- anySubsetOf (nub (theVarsIn lhs))
+          anonVars <- anySubsetOf (nub (theVarsIn lhs ++ concatMap theVarsIn rhs))
           let subst = map (,(Var $ Wildcard $ Nothing)) anonVars
           return (Clause (apply subst lhs) (map (apply subst) rhs))
 
