@@ -2,6 +2,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 module Server (runApp, app) where
 
 import Network.Wai (Application)
@@ -10,6 +11,7 @@ import qualified Web.Scotty as S
 
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Trans.Writer (execWriterT, tell)
+import Control.Exception (catch, displayException, SomeException)
 
 import Data.ByteString.Lazy.UTF8 (toString)
 import Data.Text.Lazy (pack, Text)
@@ -42,7 +44,8 @@ app' = do
     let
       config = Config . toString $ fileContent configBS
       code = Code . toString $ fileContent codeBS
-    result <- liftIO $ runMain config code
+    result <- liftIO $ catch (runMain config code)
+      (\(e:: SomeException) -> pure . Reject . PP.text . pack $ displayException e)
     case result of
       Inform info -> S.text . pack $ show (PP.text "Success\n" <$$> info)
       Reject err -> S.text . pack $ show (PP.text "Failure\n" <$$> err)
