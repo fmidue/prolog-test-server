@@ -20,6 +20,7 @@ library
       IndexContent
       Server
       ToAnonymousVarMutation
+      Util
   other-modules:
       Paths_prolog_test_server
   hs-source-dirs:

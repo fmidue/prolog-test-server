@@ -8,7 +8,7 @@ import DropClauseMutation (Mode(..))
 
 import Control.Applicative
 import Data.List
-import Data.List.Extra
+import Util (fixupShow)
 import Data.Maybe
 
 type Error = String
@@ -18,7 +18,7 @@ toAnonVarMutation :: Mode -> ProgramText -> Either Error [ProgramText]
 toAnonVarMutation Summary s =
   case consultString s of
     Left e -> Left $ show e
-    Right cs -> Right $ take 1000 $ map (unlines . map (replace ":-" " :- " . filter (/= ' ') . show)) (tail $ mapM mutate cs)
+    Right cs -> Right $ take 1000 $ map (unlines . map (fixupShow . show)) (tail $ mapM mutate cs)
       where
         mutate (Clause lhs rhs) = do
           anonVars <- anySubsetOf (nub (theVarsIn lhs ++ concatMap theVarsIn rhs))

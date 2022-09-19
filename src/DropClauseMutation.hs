@@ -5,7 +5,7 @@ import Web.Scotty (Parsable(..))
 
 import Language.Prolog
 
-import Data.List.Extra
+import Util (fixupShow)
 
 data Mode = Indiviual Int | Summary
 
@@ -16,7 +16,7 @@ dropClauseMutation :: Mode -> ProgramText -> Either Error [ProgramText]
 dropClauseMutation Summary s =
   case consultString s of
     Left e -> Left $ show e
-    Right cs -> Right [ unlines . map (replace ":-" " :- " . filter (/= ' ') . show) $ dropIx i cs | i <- [1..length cs]]
+    Right cs -> Right [ unlines . map (fixupShow . show) $ dropIx i cs | i <- [1..length cs]]
 dropClauseMutation (Indiviual n) s = take n <$> dropClauseMutation Summary s
 
 dropIx :: Int -> [a] -> [a]
