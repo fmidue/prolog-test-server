@@ -1,13 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
-module DropClauseMutation (dropClauseMutation, Mode(..)) where
+module DropClauseMutation (dropClauseMutation) where
 
 import Web.Scotty (Parsable(..))
 
 import Language.Prolog
 
-import Util (fixupShow)
-
-data Mode = Indiviual Int | Summary
+import Util (fixupShow, Mode(..))
 
 type Error = String
 type ProgramText = String

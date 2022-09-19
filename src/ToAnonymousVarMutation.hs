@@ -4,11 +4,9 @@ module ToAnonymousVarMutation (toAnonVarMutation) where
 
 import Language.Prolog
 
-import DropClauseMutation (Mode(..))
-
 import Control.Applicative
 import Data.List
-import Util (fixupShow)
+import Util (fixupShow, Mode(..))
 import Data.Maybe
 
 type Error = String

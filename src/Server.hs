@@ -30,6 +30,7 @@ import IndexContent (indexHTML)
 import Web.Scotty (middleware)
 import Network.Wai.Middleware.Cors (simpleCors)
 
+import Util (Mode(..))
 import DropClauseMutation
 import ToAnonymousVarMutation
 

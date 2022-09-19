@@ -16,12 +16,12 @@ build-type:     Simple
 
 library
   exposed-modules:
+      Server
+  other-modules:
       DropClauseMutation
       IndexContent
-      Server
       ToAnonymousVarMutation
       Util
-  other-modules:
       Paths_prolog_test_server
   hs-source-dirs:
       src
