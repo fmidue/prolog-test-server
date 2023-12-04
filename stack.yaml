@@ -6,7 +6,8 @@ packages:
 
 extra-deps:
 - git: https://github.com/fmidue/prolog-programming-task
-  commit: 492e5ee740d06475a6d7e586f6ada8b629f519b7
-- git: https://github.com/fmidue/prolog
-  commit: 137461adc0f51bd35daf17cff89982fe46816110
-- prolog-graph-lib-0.2.1.1
+  commit: 3f9d29a218e21a4af8d75977acaace2d751fd37c
+- git: https://github.com/owestphal/prolog
+  commit: feb3b1e3e806e30ce9346046f8e9239c199888df
+- git: https://github.com/fmidue/prolog-graph-lib
+  commit: 0ad74433649e97659bdb8e8a48d11d50cf7e15fb
